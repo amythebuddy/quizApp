@@ -1,8 +1,8 @@
 const container = document.getElementById("container");
-const option1 = document.getElementById('option1');
-const option2 = document.getElementById('option2');
-const option3 = document.getElementById('option3');
-const option4 = document.getElementById('option4');
+const a = document.getElementById('a');
+const b = document.getElementById('b');
+const c = document.getElementById('c');
+const d = document.getElementById('d');
 const title = document.getElementById('title');
 
 const questionsAndAnswers = {
@@ -36,69 +36,73 @@ function showQuestion(questionNum){
     title.innerText = questionsAndAnswers[questionNum][0];
     switch(questionNum){
     case 1:
-        option1.innerText = '1991';
-        option2.innerText = '1994';
-        option3.innerText = '1993';
-        option4.innerText = '1992';
+        a.innerText = '1991';
+        b.innerText = '1994';
+        c.innerText = '1993';
+        d.innerText = '1992';
         break;
         
     case 2:
-        option1.innerText = 'Find';
-        option2.innerText = 'Function';
-        option3.innerText = 'Font';
-        option4.innerText = 'Flunk';
+        a.innerText = 'Find';
+        b.innerText = 'Function';
+        c.innerText = 'Font';
+        d.innerText = 'Flunk';
         break;
 
     case 3:
-        option1.innerText = 'Tim Berners-Lee';
-        option2.innerText = 'Katherine Johnson';
-        option3.innerText = 'Margaret Hamilton';
-        option4.innerText = 'Ada Lovelace';
+        a.innerText = 'Tim Berners-Lee';
+        b.innerText = 'Katherine Johnson';
+        c.innerText = 'Margaret Hamilton';
+        d.innerText = 'Ada Lovelace';
         break;
 
     case 4:
-        option1.innerText = 'Washington';
-        option2.innerText = 'New York';
-        option3.innerText = 'Texas';
-        option4.innerText = 'California';
+        a.innerText = 'Washington';
+        b.innerText = 'New York';
+        c.innerText = 'Texas';
+        d.innerText = 'California';
         break;
 
     case 5:
-        option1.innerText = 'China';
-        option2.innerText = 'India';
-        option3.innerText = 'United States';
-        option4.innerText = 'Indonesia';
+        a.innerText = 'China';
+        b.innerText = 'India';
+        c.innerText = 'United States';
+        d.innerText = 'Indonesia';
         break;
 
     case 6:
-        option1.innerText = 'Andorra La Vella';
-        option2.innerText = 'Llanfairpwll';
-        option3.innerText = 'Bangkok';
-        option4.innerText = 'Taumata';
+        a.innerText = 'Andorra La Vella';
+        b.innerText = 'Llanfairpwll';
+        c.innerText = 'Bangkok';
+        d.innerText = 'Taumata';
         break;
 
     case 7:
-        option1.innerText = 'Denmark';
-        option2.innerText = 'Finland';
-        option3.innerText = 'Sweden';
-        option4.innerText = 'Netherlands';
+        a.innerText = 'Denmark';
+        b.innerText = 'Finland';
+        c.innerText = 'Sweden';
+        d.innerText = 'Netherlands';
         break;
     case 8:
-        option1.innerText = 'South America';
-        option2.innerText = 'Africa';
-        option3.innerText = 'North America';
-        option4.innerText = 'Asia';
+        a.innerText = 'South America';
+        b.innerText = 'Africa';
+        c.innerText = 'North America';
+        d.innerText = 'Asia';
         break;
     case 9:
-        option1.innerText = 'Wii Sports';
-        option2.innerText = 'Tetris';
-        option3.innerText = 'Grand Theft Auto V';
-        option4.innerText = 'Minecraft';
+        a.innerText = 'Wii Sports';
+        b.innerText = 'Tetris';
+        c.innerText = 'Grand Theft Auto V';
+        d.innerText = 'Minecraft';
         break;
     }
+
 }
 function checkAnswer(){
-
+    for(let i = 'a'; i < 'e'; i++)
+    if(questionsAndAnswers.hasOwnProperty(i)){
+        
+    }
 }
 function finished(){
     
