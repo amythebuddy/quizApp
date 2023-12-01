@@ -4,6 +4,7 @@ const b = document.getElementById('b');
 const c = document.getElementById('c');
 const d = document.getElementById('d');
 const title = document.getElementById('title');
+const buttons = document.querySelectorAll('button');
 let questionNumber = 0;
 
 const questionsAndAnswers = {
@@ -19,14 +20,22 @@ const questionsAndAnswers = {
     '9': ['What is the best-selling video game ever of all time?', 'Tetris'],
 };
 
-document.getElementById('a').onclick = function() {
-    document.getElementById("a").classList.add('correct');
+a.addEventListener('click', removeClick);
+
+function removeClick(event){
+    const clickedBtn = event.target;
+    if(clickedBtn.innerText === questionsAndAnswers[0][1]){
+    clickedBtn.classList.add('correct');
     next();
-};
+    clickedBtn.removeEventListener('click', removeClick);
+    }
+}
+
+
 function next(){
     let nextBtn = document.createElement("button");
     nextBtn.innerText = "Next ->";  
-    container.appendChild(nextBtn);
+    container.appendChild(nextBtn); 
 
     nextBtn.onclick = function () {
         showQuestion(++questionNumber);
@@ -35,6 +44,7 @@ function next(){
 }
 
 function showQuestion(questionNum){
+    remove(['a', 'b', 'c', 'd']);
     title.innerText = questionsAndAnswers[questionNum][0];
     switch(questionNum){
     case 1:
@@ -43,7 +53,7 @@ function showQuestion(questionNum){
         c.innerText = '1993';
         d.innerText = '1992';
 
-        c.onclick = function () {check('c');};
+        c.onclick = function() {check('c')};
         break;
         
     case 2:
@@ -52,7 +62,7 @@ function showQuestion(questionNum){
         c.innerText = 'Font';
         d.innerText = 'Flunk';
 
-        b.onclick = function () {check('b');};
+        b.onclick = function() {check('b')};
         break;
 
     case 3:
@@ -61,7 +71,6 @@ function showQuestion(questionNum){
         c.innerText = 'Margaret Hamilton';
         d.innerText = 'Ada Lovelace';
 
-        d.onclick = function () {check('d');};
         break;
 
     case 4:
@@ -70,7 +79,6 @@ function showQuestion(questionNum){
         c.innerText = 'Texas';
         d.innerText = 'California';
 
-        a.onclick = () => {check('a');}
         break;
 
     case 5:
@@ -106,15 +114,15 @@ function showQuestion(questionNum){
         d.innerText = 'Minecraft';
         break;
     }
-    remove('a', 'b', 'c', 'd');
 }
 function check(option){
-    document.getElementById(option).classList.add('correct');
+    document.getElementById(option).addEventListener('click', removeClick);
     next();
 }
-function remove(...arg){
+function remove(arg){
     arg.forEach((element) => {
         document.getElementById(element).classList.remove('correct');
+        document.getElementById(element).removeEventListener('click',removeClick);
     });
 }
 function finished(){
