@@ -4,6 +4,7 @@ const b = document.getElementById('b');
 const c = document.getElementById('c');
 const d = document.getElementById('d');
 const title = document.getElementById('title');
+let questionNumber = 0;
 
 const questionsAndAnswers = {
     '0': ['What is the capital of Vietnam?', 'Ha Noi'],
@@ -18,18 +19,19 @@ const questionsAndAnswers = {
     '9': ['What is the best-selling video game ever of all time?', 'Tetris'],
 };
 
-document.getElementById('option1').onclick = function() {
-    document.getElementById("option1").classList.add('correct');
+document.getElementById('a').onclick = function() {
+    document.getElementById("a").classList.add('correct');
     next();
 };
 function next(){
-    let questionNumber = 0;
     let nextBtn = document.createElement("button");
     nextBtn.innerText = "Next ->";  
+    container.appendChild(nextBtn);
+
     nextBtn.onclick = function () {
         showQuestion(++questionNumber);
+        container.removeChild(nextBtn);
     };
-    container.appendChild(nextBtn);
 }
 
 function showQuestion(questionNum){
@@ -40,6 +42,8 @@ function showQuestion(questionNum){
         b.innerText = '1994';
         c.innerText = '1993';
         d.innerText = '1992';
+
+        c.onclick = function () {check('c');};
         break;
         
     case 2:
@@ -47,6 +51,8 @@ function showQuestion(questionNum){
         b.innerText = 'Function';
         c.innerText = 'Font';
         d.innerText = 'Flunk';
+
+        b.onclick = function () {check('b');};
         break;
 
     case 3:
@@ -54,6 +60,8 @@ function showQuestion(questionNum){
         b.innerText = 'Katherine Johnson';
         c.innerText = 'Margaret Hamilton';
         d.innerText = 'Ada Lovelace';
+
+        d.onclick = function () {check('d');};
         break;
 
     case 4:
@@ -61,6 +69,8 @@ function showQuestion(questionNum){
         b.innerText = 'New York';
         c.innerText = 'Texas';
         d.innerText = 'California';
+
+        a.onclick = () => {check('a');}
         break;
 
     case 5:
@@ -96,13 +106,16 @@ function showQuestion(questionNum){
         d.innerText = 'Minecraft';
         break;
     }
-
+    remove('a', 'b', 'c', 'd');
 }
-function checkAnswer(){
-    for(let i = 'a'; i < 'e'; i++)
-    if(questionsAndAnswers.hasOwnProperty(i)){
-        
-    }
+function check(option){
+    document.getElementById(option).classList.add('correct');
+    next();
+}
+function remove(...arg){
+    arg.forEach((element) => {
+        document.getElementById(element).classList.remove('correct');
+    });
 }
 function finished(){
     
