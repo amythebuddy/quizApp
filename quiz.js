@@ -5,7 +5,8 @@ const c = document.getElementById('c');
 const d = document.getElementById('d');
 const title = document.getElementById('title');
 const buttons = document.querySelectorAll('button');
-let questionNumber = 0;
+let questionNumber = 1;
+let score = 0;
 
 const questionsAndAnswers = {
     '0': ['What is the capital of Vietnam?', 'Ha Noi'],
@@ -20,32 +21,38 @@ const questionsAndAnswers = {
     '9': ['What is the best-selling video game ever of all time?', 'Tetris'],
 };
 
-a.addEventListener('click', removeClick);
+b.addEventListener('click', wrongAns);
+c.addEventListener('click', wrongAns);
+d.addEventListener('click', wrongAns);
 
-function removeClick(event){
+a.addEventListener('click', checkCorrectAns);
+
+function checkCorrectAns(event){
     const clickedBtn = event.target;
-    if(clickedBtn.innerText === questionsAndAnswers[0][1]){
+    clickedBtn.classList.remove('wrong');
     clickedBtn.classList.add('correct');
     next();
-    clickedBtn.removeEventListener('click', removeClick);
-    }
+    clickedBtn.removeEventListener('click', checkCorrectAns);
 }
 
+function wrongAns(event){
+    const wrongBtn = event.target;
+    wrongBtn.classList.add('wrong');
+    wrongBtn.removeEventListener('click', wrongAns);
+}
 
 function next(){
     let nextBtn = document.createElement("button");
     nextBtn.innerText = "Next ->";  
     container.appendChild(nextBtn); 
-
     nextBtn.onclick = function () {
-        showQuestion(++questionNumber);
+        showQuestion(questionNumber++);
         container.removeChild(nextBtn);
     };
 }
 
 function showQuestion(questionNum){
     remove(['a', 'b', 'c', 'd']);
-    title.innerText = questionsAndAnswers[questionNum][0];
     switch(questionNum){
     case 1:
         a.innerText = '1991';
@@ -53,7 +60,11 @@ function showQuestion(questionNum){
         c.innerText = '1993';
         d.innerText = '1992';
 
-        c.onclick = function() {check('c')};
+        a.addEventListener('click', wrongAns);
+        b.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        c.addEventListener('click', checkCorrectAns);
         break;
         
     case 2:
@@ -62,7 +73,11 @@ function showQuestion(questionNum){
         c.innerText = 'Font';
         d.innerText = 'Flunk';
 
-        b.onclick = function() {check('b')};
+        a.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        b.addEventListener('click', checkCorrectAns);
         break;
 
     case 3:
@@ -71,6 +86,11 @@ function showQuestion(questionNum){
         c.innerText = 'Margaret Hamilton';
         d.innerText = 'Ada Lovelace';
 
+        a.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+        b.addEventListener('click', wrongAns);
+
+        d.addEventListener('click', checkCorrectAns);
         break;
 
     case 4:
@@ -79,6 +99,8 @@ function showQuestion(questionNum){
         c.innerText = 'Texas';
         d.innerText = 'California';
 
+
+        a.addEventListener('click', checkCorrectAns);
         break;
 
     case 5:
@@ -86,6 +108,12 @@ function showQuestion(questionNum){
         b.innerText = 'India';
         c.innerText = 'United States';
         d.innerText = 'Indonesia';
+
+        a.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        b.addEventListener('click', checkCorrectAns);
         break;
 
     case 6:
@@ -93,6 +121,12 @@ function showQuestion(questionNum){
         b.innerText = 'Llanfairpwll';
         c.innerText = 'Bangkok';
         d.innerText = 'Taumata';
+
+        a.addEventListener('click', wrongAns);
+        b.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        c.addEventListener('click', checkCorrectAns);
         break;
 
     case 7:
@@ -100,31 +134,43 @@ function showQuestion(questionNum){
         b.innerText = 'Finland';
         c.innerText = 'Sweden';
         d.innerText = 'Netherlands';
+
+        b.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        a.addEventListener('click', checkCorrectAns);
         break;
     case 8:
         a.innerText = 'South America';
         b.innerText = 'Africa';
         c.innerText = 'North America';
         d.innerText = 'Asia';
+
+        a.addEventListener('click', wrongAns);
+        b.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+
+        d.addEventListener('click', checkCorrectAns);
         break;
     case 9:
         a.innerText = 'Wii Sports';
         b.innerText = 'Tetris';
         c.innerText = 'Grand Theft Auto V';
         d.innerText = 'Minecraft';
+
+        a.addEventListener('click', wrongAns);
+        c.addEventListener('click', wrongAns);
+        d.addEventListener('click', wrongAns);
+
+        b.addEventListener('click', checkCorrectAns);
         break;
     }
 }
-function check(option){
-    document.getElementById(option).addEventListener('click', removeClick);
-    next();
-}
+
 function remove(arg){
     arg.forEach((element) => {
         document.getElementById(element).classList.remove('correct');
-        document.getElementById(element).removeEventListener('click',removeClick);
+        document.getElementById(element).classList.remove('wrong');
     });
-}
-function finished(){
-    
 }
