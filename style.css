@@ -15,6 +15,9 @@ button{
     background-color: rgb(199, 243, 243);
     border-radius: 1rem;
 }
+button:hover{
+    cursor: pointer;
+}
 .correct{
     background-color: rgb(3, 171, 3);
 }

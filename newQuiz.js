@@ -9,17 +9,36 @@ let questionNumber = 1;
 let score = 0;
 let wrong = 0;
 
-const questionsAndAnswers = {
+const questionsAndAnswers = [{
     '1': 'In what year was the internet opened to the public?',
+    options: [
+        {"1991" : false},
+        {"1992" : false},
+        {"1993" : true},
+        {"1994" : false}
+    ]},
+    {
     '2': 'What is the meaning of "fn" on your computer keyboard?',
+    options: [
+        {"Find" : false},
+        {"Fonts" : false},
+        {"Function" : true},
+        {"Flunk" : false}
+    ]},{
     '3': 'Who was the first computer programmer?',
-    '4': 'Amazon (company) was founded in which US state',
-    '5': 'Which country has the largest population in the world?',
-    '6': 'What city has the longest name in the world?',
-    '7': 'Which country owns greenland?',
-    '8': 'What continent is the biggest?',
-    '9': 'What is the best-selling video game ever of all time?'
-};
+    options: [
+        {"Find" : false},
+        {"Fonts" : false},
+        {"Function" : true},
+        {"Flunk" : false}
+    ]},
+    '4': ['Amazon (company) was founded in which US state', 'Washington'],
+    '5': ['Which country has the largest population in the world?','India'],
+    '6': ['What city has the longest name in the world?', 'Bangkok'],
+    '7': ['Which country owns greenland?', 'Denmark'],
+    '8': ['What continent is the biggest?', 'Asia'],
+    '9': ['What is the best-selling video game ever of all time?', 'Tetris'],
+];
 
 b.addEventListener('click', wrongAns);
 c.addEventListener('click', wrongAns);
