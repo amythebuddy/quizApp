@@ -66,6 +66,7 @@ function next(){
         container.removeChild(nextBtn);
     };
 }
+
 function checkWrong(...arg){
     arg.forEach((element) => {
         element.addEventListener('click', wrongAns);

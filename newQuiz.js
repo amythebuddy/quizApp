@@ -5,205 +5,124 @@ const c = document.getElementById('c');
 const d = document.getElementById('d');
 const title = document.getElementById('title');
 const buttons = document.querySelectorAll('button');
-let questionNumber = 1;
+let questionNumber = 0;
 let score = 0;
 let wrong = 0;
 
-const questionsAndAnswers = [{
-    '1': 'In what year was the internet opened to the public?',
-    options: [
-        {"1991" : false},
-        {"1992" : false},
-        {"1993" : true},
-        {"1994" : false}
-    ]},
+const questionsAndAnswers = [
     {
-    '2': 'What is the meaning of "fn" on your computer keyboard?',
-    options: [
-        {"Find" : false},
-        {"Fonts" : false},
-        {"Function" : true},
-        {"Flunk" : false}
-    ]},{
-    '3': 'Who was the first computer programmer?',
-    options: [
-        {"Find" : false},
-        {"Fonts" : false},
-        {"Function" : true},
-        {"Flunk" : false}
-    ]},
-    '4': ['Amazon (company) was founded in which US state', 'Washington'],
-    '5': ['Which country has the largest population in the world?','India'],
-    '6': ['What city has the longest name in the world?', 'Bangkok'],
-    '7': ['Which country owns greenland?', 'Denmark'],
-    '8': ['What continent is the biggest?', 'Asia'],
-    '9': ['What is the best-selling video game ever of all time?', 'Tetris'],
+        question: 'What is the capital of Vietnam?',
+        options: [
+            {"Ha Noi" : true},
+            {"Ho Chi Minh City" : false},
+            {"Vientiane" : false},
+            {"Sai Gon" : false}
+        ]
+    },
+    {
+        question: 'In what year was the internet opened to the public?',
+        options: [
+            {"1991" : false},
+            {"1992" : false},
+            {"1993" : true},
+            {"1994" : false}
+        ]
+    },
+    {
+        question: 'What is the meaning of "fn" on your computer keyboard?',
+        options: [
+            {"Find" : false},
+            {"Function" : true},
+            {"Fonts" : false},
+            {"Flunk" : false}
+        ]
+    },
+    {
+        question: 'Who was the first computer programmer?',
+        options: [
+            {"Tim Berners-Lee" : false},
+            {"Katherine Johnson" : false},
+            {"Margaret Hamilton" : false},
+            {"Ada Lovelace" : true}
+        ]
+    }, 
+    {
+        question: 'Amazon (company) was founded in which US state',
+        options: [
+            {"Washington" : true},
+            {"Califronia" : false},
+            {"New York" : false},
+            {"Texas" : false}
+        ]
+    }, 
+    {
+        question: 'Which country has the largest population in the world?',
+        options: [
+            {"China" : false},
+            {"India" : true},
+            {"United States" : false},
+            {"Indonesia" : false}
+        ]
+    }, 
+    {
+        question : 'What city has the longest name in the world?',
+        options: [
+            {"Andorra La Vella" : false},
+            {"Llanfairpwll" : false},
+            {"Bangkok" : true},
+            {"Taumata" : false}
+        ]
+    }, 
+    {
+        question: 'Which country owns Greenland?',
+        options: [
+            {"Denmark" : true},
+            {"Sweden" : false},
+            {"Finland" : false},
+            {"Netherlands" : false}
+        ]
+    }, 
+    {
+        question: 'What continent is the biggest?',
+        options: [
+            {"North America" : false},
+            {"New York" : false},
+            {"Africa" : false},
+            {"Asia" : true}
+        ]
+    }, 
+    {
+        question: 'What is the best-selling video game ever of all time?',
+        options: [
+            {"Wii Sports" : false},
+            {"Tetris" : true},
+            {"Minecraft" : false},
+            {"Grand Theft Auto V" : false}
+        ]
+    }
 ];
 
-b.addEventListener('click', wrongAns);
-c.addEventListener('click', wrongAns);
-d.addEventListener('click', wrongAns);
+function loadedQuestion(questionNumber){
+    let questionInfo = questionsAndAnswers[questionNumber];
+    title.innerText = questionInfo.question;
+    for(let i = 0; i < questionsAndAnswers[0].options.length; i++){
+        buttons[i].innerText = Object.keys(questionInfo.options[i])[0];
+        buttons[i].onclick = function(){
+            if(Object.values(questionInfo.options[i])[0] === true){
+                buttons[i].classList.add('correct');
+                let nextBtn = document.createElement("button");
+                nextBtn.innerText = "Next ->";  
+                container.appendChild(nextBtn); 
 
-a.addEventListener('click', checkCorrectAns);
-
-function checkCorrectAns(event){
-    const correctBtn = event.target;
-    correctBtn.classList.remove('wrong');
-    correctBtn.classList.add('correct');
-    score++;
-    console.log("score: "+ score);
-    removeWrongListeners();
-    next();
-    correctBtn.removeEventListener('click', checkCorrectAns);
-}
-
-function wrongAns(event){
-    const wrongBtn = event.target;
-    wrongBtn.classList.add('wrong');
-    wrong++;
-    if(wrong === 1){ // only count the first wrong answer
-        score--;
-    }
-    wrong = 0;
-    wrongBtn.removeEventListener('click', wrongAns);
-}
-
-function removeWrongListeners() {
-    // Remove event listeners for wrong answers
-    buttons.forEach(button => {
-        button.removeEventListener('click', wrongAns);
-    });
-}
-
-function next(){
-    let nextBtn = document.createElement("button");
-    nextBtn.innerText = "Next ->";  
-    container.appendChild(nextBtn); 
-    
-    nextBtn.onclick = function () {
-        showQuestion(questionNumber++);
-        container.removeChild(nextBtn);
-    };
-}
-function checkWrong(...arg){
-    arg.forEach((element) => {
-        element.addEventListener('click', wrongAns);
-    });
-    console.log("wrong: "+ wrong);
-}
-
-function remove(arg){
-    //remove each of the answer color before moving on to the new question
-    arg.forEach((element) => {
-        document.getElementById(element).classList.remove('correct');
-        document.getElementById(element).classList.remove('wrong');
-    });
-}
-
-
-function showQuestion(questionNum){
-    remove(['a', 'b', 'c', 'd']);
-    if(questionNum > Object.keys(questionsAndAnswers).length - 1){
-        title.innerText = `Your score is: ${score}`;
-        container.removeChild(nextBtn);
-    }
-    title.innerText = questionsAndAnswers[questionNum][0];
-    switch(questionNum){
-    case 1:
-        a.innerText = '1991';
-        b.innerText = '1994';
-        c.innerText = '1993';
-        d.innerText = '1992';
-
-        checkWrong(a,b,d);
-
-        c.addEventListener('click', checkCorrectAns);
-        break;
-        
-    case 2:
-        a.innerText = 'Find';
-        b.innerText = 'Function';
-        c.innerText = 'Font';
-        d.innerText = 'Flunk';
-
-        checkWrong(a,c,d);
-
-        b.addEventListener('click', checkCorrectAns);
-        break;
-
-    case 3:
-        a.innerText = 'Tim Berners-Lee';
-        b.innerText = 'Katherine Johnson';
-        c.innerText = 'Margaret Hamilton';
-        d.innerText = 'Ada Lovelace';
-
-        checkWrong(a,b,c);
-
-        d.addEventListener('click', checkCorrectAns);
-        break;
-
-    case 4:
-        a.innerText = 'Washington';
-        b.innerText = 'New York';
-        c.innerText = 'Texas';
-        d.innerText = 'California';
-
-        checkWrong(b,c,d);
-
-        a.addEventListener('click', checkCorrectAns);
-        break;
-
-    case 5:
-        a.innerText = 'China';
-        b.innerText = 'India';
-        c.innerText = 'United States';
-        d.innerText = 'Indonesia';
-
-        checkWrong(a,c,d);
-
-        b.addEventListener('click', checkCorrectAns);
-        break;
-
-    case 6:
-        a.innerText = 'Andorra La Vella';
-        b.innerText = 'Llanfairpwll';
-        c.innerText = 'Bangkok';
-        d.innerText = 'Taumata';
-
-        checkWrong(a,b,d);
-
-        c.addEventListener('click', checkCorrectAns);
-        break;
-
-    case 7:
-        a.innerText = 'Denmark';
-        b.innerText = 'Finland';
-        c.innerText = 'Sweden';
-        d.innerText = 'Netherlands';
-
-        checkWrong(b,c,d);
-
-        a.addEventListener('click', checkCorrectAns);
-        break;
-    case 8:
-        a.innerText = 'South America';
-        b.innerText = 'Africa';
-        c.innerText = 'North America';
-        d.innerText = 'Asia';
-
-        checkWrong(a,b,c);
-
-        d.addEventListener('click', checkCorrectAns);
-        break;
-    case 9:
-        a.innerText = 'Wii Sports';
-        b.innerText = 'Tetris';
-        c.innerText = 'Grand Theft Auto V';
-        d.innerText = 'Minecraft';
-
-        checkWrong(a,c,d);
-
-        b.addEventListener('click', checkCorrectAns);
-        break;
+                nextBtn.onclick = function () {
+                    loadedQuestion(++questionNumber);
+                    container.removeChild(nextBtn);
+                };
+            } else {
+                buttons[i].classList.add('wrong');
+            }
+        }
     }
 }
+
+loadedQuestion(questionNumber);
