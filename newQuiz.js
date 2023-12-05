@@ -1,8 +1,5 @@
 const container = document.getElementById("container");
-const a = document.getElementById('a');
-const b = document.getElementById('b');
-const c = document.getElementById('c');
-const d = document.getElementById('d');
+const funFact = document.getElementById('funFact');
 const title = document.getElementById('title');
 const buttons = document.querySelectorAll('button');
 let questionNumber = 0;
@@ -13,10 +10,14 @@ const questionsAndAnswers = [
     {
         question: 'What is the capital of Vietnam?',
         options: [
-            {"Ha Noi" : true},
-            {"Ho Chi Minh City" : false},
-            {"Vientiane" : false},
-            {"Sai Gon" : false}
+            {"Hanoi" : true,
+            fact : 'Hanoi, the capital of Vietnam, is known for its centuries-old architecture and a rich culture with Southeast Asian, Chinese and French influences.'},
+            {"Ho Chi Minh City" : false,
+            fact : 'Ho Chi Minh City is the largest city, business and financial hub of Vietnam. There are plenty of museums showcasing the country\'s dark wartime history and classic colonial architecture built by former French rulers.'},
+            {"Vientiane" : false,
+            fact : 'Vientiane, Laos\' national capital, mixes French-colonial architecture with Buddhist temples such as the golden, 16th-century Pha That Luang, which is a national symbol.'},
+            {"Saigon" : false,
+            fact : 'Saigon\'s name was changed to Ho Chi Minh City, to honor the revolutionary leader who had declared independence back in 1945.'}
         ]
     },
     {
@@ -24,7 +25,8 @@ const questionsAndAnswers = [
         options: [
             {"1991" : false},
             {"1992" : false},
-            {"1993" : true},
+            {"1993" : true,
+            fact: 'On April 30, 1993, the World Wide Web was released into the public domain. It revolutionized the internet and allowed users to create websites filled with graphics, audio and hyperlinks.'},
             {"1994" : false}
         ]
     },
@@ -103,26 +105,54 @@ const questionsAndAnswers = [
 ];
 
 function loadedQuestion(questionNumber){
+    //showing what question we are on
     let questionInfo = questionsAndAnswers[questionNumber];
-    title.innerText = questionInfo.question;
-    for(let i = 0; i < questionsAndAnswers[0].options.length; i++){
+    
+    // if the question number reaches 10 then show the score
+    // else continue with the question
+    if(questionNumber > Object.keys(questionsAndAnswers).length - 1){
+        title.innerText = `You got ${score}/10!`;
+        buttons.forEach((button) => {
+            button.remove();
+        })
+    } else {
+        title.innerText = questionInfo.question;
+    }
+
+    for(let i = 0; i < questionInfo.options.length; i++){
+        // showing the option on the button so the user can choose
         buttons[i].innerText = Object.keys(questionInfo.options[i])[0];
+        
+        // if the clicked button is correct, background color change to green and add 1 point
         buttons[i].onclick = function(){
             if(Object.values(questionInfo.options[i])[0] === true){
                 buttons[i].classList.add('correct');
+                score++;    
                 let nextBtn = document.createElement("button");
                 nextBtn.innerText = "Next ->";  
                 container.appendChild(nextBtn); 
 
                 nextBtn.onclick = function () {
+                    //remove each of the answer color before moving on to the new question
+                    buttons.forEach((element) => {
+                        element.classList.remove('correct');
+                        element.classList.remove('wrong');
+                    });
                     loadedQuestion(++questionNumber);
-                    container.removeChild(nextBtn);
+                    nextBtn.remove();
                 };
             } else {
                 buttons[i].classList.add('wrong');
+                wrong++;
+                if(wrong === 1){ // only count the first wrong answer
+                    score--;
+                }
+                wrong = 0;
             }
+            funFact.innerText = Object.values(questionInfo.options[i])[1];
         }
     }
+    
 }
 
 loadedQuestion(questionNumber);

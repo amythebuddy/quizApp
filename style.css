@@ -6,6 +6,10 @@
     margin: 0 auto;
     text-align: center; 
 }
+#funFact{
+    width: 90%;
+    margin: 0 auto;
+}
 button{
     margin: 2rem;
     width: 9rem;
