@@ -2,13 +2,15 @@
     border: 1px black solid;
     background-color: lavender;
     width: 50%;
-    height: 20rem;
+    height: 28rem;
     margin: 0 auto;
     text-align: center; 
 }
 #funFact{
     width: 90%;
     margin: 0 auto;
+    background-color: bisque;
+    font-size: 1.25rem;
 }
 button{
     margin: 2rem;

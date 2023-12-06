@@ -13,11 +13,11 @@ const questionsAndAnswers = [
             {"Hanoi" : true,
             fact : 'Hanoi, the capital of Vietnam, is known for its centuries-old architecture and a rich culture with Southeast Asian, Chinese and French influences.'},
             {"Ho Chi Minh City" : false,
-            fact : 'Ho Chi Minh City is the largest city, business and financial hub of Vietnam. There are plenty of museums showcasing the country\'s dark wartime history and classic colonial architecture built by former French rulers.'},
+            fact : 'Ho Chi Minh City is the largest city, business and financial hub of Vietnam, but it is not the capital of Vietnam. There are plenty of museums showcasing the country\'s dark wartime history and classic colonial architecture built by former French rulers.'},
             {"Vientiane" : false,
-            fact : 'Vientiane, Laos\' national capital, mixes French-colonial architecture with Buddhist temples such as the golden, 16th-century Pha That Luang, which is a national symbol.'},
+            fact : "Vientiane, Laos' national capital, mixes French-colonial architecture with Buddhist temples such as the golden, 16th-century Pha That Luang, which is a national symbol."},
             {"Saigon" : false,
-            fact : 'Saigon\'s name was changed to Ho Chi Minh City, to honor the revolutionary leader who had declared independence back in 1945.'}
+            fact : "Saigon's name was changed to Ho Chi Minh City, to honor the revolutionary leader who had declared independence back in 1945."}
         ]
     },
     {
@@ -42,10 +42,14 @@ const questionsAndAnswers = [
     {
         question: 'Who was the first computer programmer?',
         options: [
-            {"Tim Berners-Lee" : false},
-            {"Katherine Johnson" : false},
+            {"Tim Berners-Lee" : false,
+            fact: "The inventor of the World Wide Web and one of Time Magazine's '100 Most Important People of the 20th Century', Sir Tim Berners-Lee is a scientist and academic whose visionary and innovative work has transformed almost every aspect of our lives."},
+            {"Katherine Johnson" : false,
+            fact: "Katherine figured out the paths for the spacecraft to orbit (go around) Earth and to land on the Moon. NASA used Katherine's math." +
+            "When Katherine began working for NASA, African American people were treated as if they were not equal. She led the way in showing what women and African American people could achieve"},
             {"Margaret Hamilton" : false},
-            {"Ada Lovelace" : true}
+            {"Ada Lovelace" : true,
+            fact: 'Ada Lovelace, an English mathematician and writer, is referred to as “the first programmer” because she helped revolutionize the trajectory of the computer industry and is considered the first person to recognize that computers had a much larger potential than mathematical calculation.'}
         ]
     }, 
     {
@@ -138,6 +142,7 @@ function loadedQuestion(questionNumber){
                         element.classList.remove('correct');
                         element.classList.remove('wrong');
                     });
+                    funFact.innerText = "";
                     loadedQuestion(++questionNumber);
                     nextBtn.remove();
                 };
