@@ -2,9 +2,12 @@
     border: 1px black solid;
     background-color: lavender;
     width: 50%;
-    height: 28rem;
-    margin: 0 auto;
+    height: 26rem;
+    margin: 10rem auto;
     text-align: center; 
+}
+h1{
+    font-size: 2.5rem;
 }
 #funFact{
     width: 90%;
@@ -13,7 +16,7 @@
     font-size: 1.25rem;
 }
 button{
-    margin: 2rem;
+    margin: 1.25rem;
     width: 9rem;
     padding: 0.5rem 0;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -29,4 +32,8 @@ button:hover{
 }
 .wrong{
     background-color: red;
+}
+.finished{
+    font-size: 9rem;
+    color: royalblue;
 }
