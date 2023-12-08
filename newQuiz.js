@@ -5,7 +5,6 @@ const title = document.getElementById('title');
 const buttons = document.querySelectorAll('button');
 let questionNumber = 0;
 let score = 0;
-let wrong = 0;
 
 const questionsAndAnswers = [
     {
@@ -158,8 +157,10 @@ function loadedQuestion(questionNumber){
     } else {
         title.innerText = questionInfo.question;
     }
-    // a signal for checking answer
-    let correctClicked = false;
+
+    let correctClicked = false; // for the next button to appear only once
+    let correctAnswer = false // for the score to add 1 point even when the correct button is clicked multiple times
+    let wrongAnswer = false; // for the score to minus 1 point even when the wrong answer is clicked multiple times
 
     for(let i = 0; i < questionInfo.options.length; i++){
         // showing the answer on the button so the user can choose
@@ -169,32 +170,41 @@ function loadedQuestion(questionNumber){
         buttons[i].onclick = function(){
             if(Object.values(questionInfo.options[i])[0] === true){
                 buttons[i].classList.add('correct');
-                score++;    
-                correctClicked = true; //set the signal to true
 
-                //create a next button
-                let nextBtn = document.createElement("button");
-                nextBtn.innerText = "Next ->";  
-                container.appendChild(nextBtn); 
-                nextBtn.onclick = function () {
-                    //remove each of the answer color before moving on to the new question
-                    buttons.forEach((element) => {
-                        element.classList.remove('correct');
-                        element.classList.remove('wrong');
-                    });
-                    funFact.innerText = ""; // clear the fun fact section when go onto the next question
-                    loadedQuestion(++questionNumber); // move onto the next question
-                    nextBtn.remove(); // remove the next button when go onto the next question
-                };
+                //only count the correct answer once
+                if(!correctAnswer) score++;
+                
+                correctAnswer = true;
+                
+                // if the correct answer is clicked, only 1 next button appear
+                if(!correctClicked){
+                    //create a next button
+                    let nextBtn = document.createElement("button");
+                    nextBtn.innerText = "Next ->";  
+                    container.appendChild(nextBtn); 
+
+                    correctClicked = true;
+
+                    nextBtn.onclick = function () {
+                        //remove each of the answer color before moving on to the new question
+                        buttons.forEach((element) => {
+                            element.classList.remove('correct');
+                            element.classList.remove('wrong');
+                        });
+                        funFact.innerText = ""; // clear the fun fact section when go onto the next question
+                        loadedQuestion(++questionNumber); // move onto the next question
+                        nextBtn.remove(); // remove the next button when go onto the next question
+                    }; 
+                }
             } else {
                     buttons[i].classList.add('wrong');
-                    wrong++;
-                     // only count the first wrong answer and the correct answer is not clicked
-                    if(wrong === 1 && !correctClicked){
+                    // only count the first wrong answer and the correct answer is not clicked
+                    if(!wrongAnswer && !correctAnswer){
                         score--;
                     }
-                    wrong = 0;
+                    wrongAnswer = true;
             }
+            console.log(score);
             // add the fact to the funFact section
             funFact.innerText = Object.values(questionInfo.options[i])[1];
         }
